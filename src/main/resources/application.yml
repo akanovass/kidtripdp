@@ -1,0 +1,26 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: kidtrip
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5434/kidtrip}
+    username: ${POSTGRES_USER:kidtrip}
+    password: ${POSTGRES_PASSWORD:kidtrip}
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc.lob.non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+app:
+  auth:
+    jwtSecret: kidTripSecretKey
+    jwtExpirationMs: 86400000
