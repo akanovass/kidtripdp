@@ -20,7 +20,6 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
     List<Trip> findAllByParent(Parent parent);
     List<Trip> findAllByChild(Child child);
 
-//    @Query(value = "select price from trip t where t.distance <= :to and t.distance >= :from and day_time = :day and weekend = :weekend and status = 'END' order by created_date desc limit 10", nativeQuery = true)
-    @Query(value = "select price from trip t where t.distance <= :to and t.distance >= :from and status = 'END' order by created_date desc limit 10", nativeQuery = true)
-    List<Integer> getPriceForLastTrip(@Param("from") int from, @Param("to") int to);
+    @Query(value = "select price from trip t where t.distance <= :to and t.distance >= :from and day_time = :day and weekend = :weekend and status = 'END' order by created_date desc limit 10", nativeQuery = true)
+    List<Integer> getPriceForLastTrip( @Param("day") int dayTime, @Param("weekend") Boolean weekend, @Param("from") int from, @Param("to") int to);
 }

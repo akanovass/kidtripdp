@@ -91,8 +91,8 @@ public class TripService {
         Trip trip = new Trip();
         int from = (int) request.getDistance();
         int price = 0;
-//        List<Integer> prices = tripRepository.getPriceForLastTrip(request.getDayTime(), request.getWeekend(), from, from + 1);
-        List<Integer> prices = tripRepository.getPriceForLastTrip(from, from + 1);
+        List<Integer> prices = tripRepository.getPriceForLastTrip(request.getDayTime().getValue(), request.getWeekend(), from, from + 1);
+//        List<Integer> prices = tripRepository.getPriceForLastTrip(from, from + 1);
         for (int pr: prices) {
             price += pr;
         }
