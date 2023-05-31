@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import kz.iitu.kidtirp.model.dto.request.TripAcceptRequest;
 import kz.iitu.kidtirp.model.dto.request.TripDisposableRequest;
+import kz.iitu.kidtirp.model.dto.request.TripRequest;
 import kz.iitu.kidtirp.service.TripService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -50,6 +51,12 @@ public class TripController {
     @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<?> getAllNewTrip() {
         return ResponseEntity.ok(tripService.getAllNewTrip());
+    }
+
+
+    @PostMapping("/create")
+    public ResponseEntity<?> createTrip(@RequestBody TripRequest tripRequest) {
+        return ResponseEntity.ok(tripService.createTrip(tripRequest));
     }
 
 }

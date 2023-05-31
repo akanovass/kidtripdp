@@ -1,13 +1,13 @@
 package kz.iitu.kidtirp.service;
 
 import kz.iitu.kidtirp.exceptions.ObjectNotFoundException;
-import kz.iitu.kidtirp.model.dto.request.ChildRequest;
-import kz.iitu.kidtirp.model.dto.request.ParentRequest;
-import kz.iitu.kidtirp.model.dto.request.SignupRequest;
+import kz.iitu.kidtirp.model.dto.request.*;
 import kz.iitu.kidtirp.model.entity.Child;
+import kz.iitu.kidtirp.model.entity.ChildLocation;
 import kz.iitu.kidtirp.model.entity.Parent;
 import kz.iitu.kidtirp.model.entity.User;
 import kz.iitu.kidtirp.model.entity.enums.ERole;
+import kz.iitu.kidtirp.repository.ChildLocationRepository;
 import kz.iitu.kidtirp.repository.ChildRepository;
 import kz.iitu.kidtirp.repository.DriverRepository;
 import kz.iitu.kidtirp.repository.ParentRepository;
@@ -26,6 +26,7 @@ import java.util.List;
 public class ParentService {
 
     ChildRepository childRepository;
+    ChildLocationRepository childLocationRepository;
     ParentRepository parentRepository;
     DriverRepository driverRepository;
     UserService userService;
@@ -89,6 +90,40 @@ public class ParentService {
 
     public Parent payDrive() {
         return null;
+    }
+
+    public ChildLocation updateLocation(LocationDto locationDto, Long childId) {
+        Child child = childRepository.findById(childId).orElseThrow();
+        ChildLocation childLocation = new ChildLocation();
+        if (locationDto.getId() != null) {
+            childLocation = childLocationRepository.findById(locationDto.getId()).orElseThrow();
+        } else {
+            childLocation = new ChildLocation();
+        }
+
+        childLocation.setStatus(locationDto.getStatus());
+        childLocation.setName(locationDto.getName());
+        childLocation.setTime(locationDto.getTime());
+        childLocation.setCoordinate(locationDto.getCoordinate());
+        childLocation.setLongitude(locationDto.getLongitude());
+        childLocation.setLatitude(locationDto.getLatitude());
+        childLocation.setChild(child);
+
+        return childLocationRepository.save(childLocation);
+
+    }
+
+    public List<ChildInformation> getAllChildByParent(Long parentId) {
+        List<ChildInformation> childInformations = new ArrayList<>();
+        Parent parent = parentRepository.findById(parentId).orElseThrow();
+        for (Child child: parent.getChildren()) {
+            ChildInformation childInformation = new ChildInformation();
+            ChildLocation childLocation = childLocationRepository.findByChild(child);
+            childInformation.setChild(child);
+            childInformation.setChildLocation(childLocation);
+            childInformations.add(childInformation);
+        }
+        return childInformations;
     }
 
 }

@@ -67,4 +67,11 @@ public class ParentController {
                                           @RequestParam Long driverId) {
         return ResponseEntity.ok(parentService.selectDriver(driverId, parentId));
     }
+
+    @GetMapping("/children/{parentId}")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<?> getAllByParent(@PathVariable Long parentId) {
+        return ResponseEntity.ok(parentService.getAllChildByParent(parentId));
+    }
+
 }
