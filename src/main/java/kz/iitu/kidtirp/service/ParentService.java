@@ -43,6 +43,25 @@ public class ParentService {
         return parentRepository.save(parent);
     }
 
+    public Parent getParentByUserId(Long userId) {
+        User user = userService.getUserById(userId);
+        return parentRepository.findByUser(user);
+    }
+
+    public Parent getParentById(Long id) {
+        return parentRepository.findById(id).orElse(null);
+    }
+
+    public Child getChildByUser(Long userId) {
+        User user = userService.getUserById(userId);
+        return childRepository.findByUser(user);
+    }
+
+    public Child getChildById(Long id) {
+        return childRepository.findById(id).orElse(null);
+    }
+
+
     @Transactional
     public Parent updateParent(ParentRequest request) {
         Parent parent = parentRepository.findById(request.getId()).orElseThrow();
@@ -67,16 +86,8 @@ public class ParentService {
         return parent;
     }
 
-    public Parent getParentById(Long id) {
-        return parentRepository.findById(id).orElseThrow();
-    }
-
     public List<Parent> getAllParents() {
         return parentRepository.findAll();
-    }
-
-    public Child getChildById(Long id) {
-        return childRepository.findById(id).orElseThrow();
     }
 
     public List<Child> getAllChild() {

@@ -38,6 +38,18 @@ public class DriverController {
         return ResponseEntity.ok(driverService.updateDriver(request));
     }
 
+    @GetMapping("/user/{id}")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<?> getDriverByUserId(@PathVariable Long id) {
+        return ResponseEntity.ok(driverService.getDriverByUser(id));
+    }
+
+    @GetMapping("/{id}")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<?> getDriverById(@PathVariable Long id) {
+        return ResponseEntity.ok(driverService.getById(id));
+    }
+
     @DeleteMapping("/delete/{id}")
     @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     public void deleteDriver(@PathVariable Long id) {

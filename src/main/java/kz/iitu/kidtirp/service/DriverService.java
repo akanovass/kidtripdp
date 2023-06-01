@@ -53,6 +53,15 @@ public class DriverService {
         return driverRepository.save(driver);
     }
 
+    public Driver getDriverByUser(Long userId) {
+        User user = userService.getUserById(userId);
+        return driverRepository.findByUser(user);
+    }
+
+    public Driver getById(Long id) {
+        return driverRepository.findById(id).orElse(null);
+    }
+
     public void deleteDriver(Long driverId) {
         Driver driver = driverRepository.findById(driverId).orElseThrow();
         driverRepository.delete(driver);

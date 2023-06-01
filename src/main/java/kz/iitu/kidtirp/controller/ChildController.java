@@ -32,4 +32,16 @@ public class ChildController {
     public ResponseEntity<?> updateLocation(@RequestBody LocationDto location, @PathVariable Long childId) {
         return ResponseEntity.ok(parentService.updateLocation(location, childId));
     }
+
+    @GetMapping("/user/{id}")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<?> getChildByUserId(@PathVariable Long id) {
+        return ResponseEntity.ok(parentService.getChildByUser(id));
+    }
+
+    @GetMapping("/{id}")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<?> getChildById(@PathVariable Long id) {
+        return ResponseEntity.ok(parentService.getChildById(id));
+    }
 }

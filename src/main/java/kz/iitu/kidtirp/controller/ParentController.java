@@ -30,7 +30,20 @@ public class ParentController {
         return ResponseEntity.ok(parentService.registerParent(request));
     }
 
+    @GetMapping("/user/{id}")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<?> getParentById(@PathVariable Long id) {
+        return ResponseEntity.ok(parentService.getParentByUserId(id));
+    }
+
+    @GetMapping("/{id}")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<?> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(parentService.getParentById(id));
+    }
+
     @PostMapping("/update")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<?> updateParent(@RequestBody ParentRequest request) {
         return ResponseEntity.ok(parentService.updateParent(request));
     }
