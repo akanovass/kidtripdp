@@ -33,7 +33,8 @@ public class DriverService {
     public Driver createDriver(DriverRequest request) {
         User user = userService.createUser(new SignupRequest(request.getUsername(), request.getFullName(), request.getGmail(), request.getPhoneNumber(), request.getPassword(), ERole.DRIVER));
         Driver driver = new Driver(user, request.getIin(), request.getBirthDate(), request.getArea(), request.getExperience(), request.getCarLicencePlate(),
-                request.getDateOfIssue(), request.getExpiryDate(), request.getWorkDistinct(), request.getIdentificationPhoto(), request.getDriverLicensePhoto(), request.getTechPassportPhoto());
+                request.getDateOfIssue(), request.getExpiryDate(), request.getWorkDistinct(), request.getIdentificationPhoto(), request.getDriverLicensePhoto(), request.getTechPassportPhoto(),
+                request.getSex(), request.getRating());
         return driverRepository.save(driver);
     }
 
@@ -50,6 +51,8 @@ public class DriverService {
         driver.setIdentificationPhoto(request.getIdentificationPhoto());
         driver.setDriverLicensePhoto(request.getDriverLicensePhoto());
         driver.setTechPassportPhoto(request.getTechPassportPhoto());
+        driver.setSex(request.getSex());
+        driver.setRating(request.getRating());
         return driverRepository.save(driver);
     }
 

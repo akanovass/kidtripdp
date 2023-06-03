@@ -46,7 +46,11 @@ public class Driver {
 
     private Long carId;
 
-    public Driver(User user, String iin, Date birthDate, String area, Integer experience, String carLicencePlate, Date dateOfIssue, Date expiryDate, String workDistinct, String identificationPhoto, String driverLicensePhoto, String techPassportPhoto) {
+    private String sex;
+
+    private Double rating;
+
+    public Driver(User user, String iin, Date birthDate, String area, Integer experience, String carLicencePlate, Date dateOfIssue, Date expiryDate, String workDistinct, String identificationPhoto, String driverLicensePhoto, String techPassportPhoto,  String sex, Double rating) {
         this.user = user;
         this.iin = iin;
         this.birthDate = birthDate;
@@ -59,5 +63,7 @@ public class Driver {
         this.identificationPhoto = identificationPhoto;
         this.driverLicensePhoto = driverLicensePhoto;
         this.techPassportPhoto = techPassportPhoto;
+        this.sex = sex;
+        this.rating = rating;
     }
 }

@@ -35,5 +35,7 @@ public class DriverRequest {
     private String identificationPhoto;
     private String driverLicensePhoto;
     private String techPassportPhoto;
+    private String sex;
+    private Double rating;
 
 }

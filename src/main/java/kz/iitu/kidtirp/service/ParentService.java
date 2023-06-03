@@ -2,6 +2,7 @@ package kz.iitu.kidtirp.service;
 
 import kz.iitu.kidtirp.exceptions.ObjectNotFoundException;
 import kz.iitu.kidtirp.model.dto.request.*;
+import kz.iitu.kidtirp.model.dto.response.ChildLocationDto;
 import kz.iitu.kidtirp.model.entity.Child;
 import kz.iitu.kidtirp.model.entity.ChildLocation;
 import kz.iitu.kidtirp.model.entity.Parent;
@@ -122,6 +123,28 @@ public class ParentService {
 
         return childLocationRepository.save(childLocation);
 
+    }
+
+    public ChildLocationDto getChildLocationLatitude(Long childId) {
+        Child child = childRepository.findById(childId).orElseThrow();
+        ChildLocation childLocation = childLocationRepository.findByChild(child);
+        ChildLocationDto childLocationDto = new ChildLocationDto();
+        childLocationDto.setLatitude(childLocation.getLatitude());
+        childLocationDto.setLongitude(childLocation.getLongitude());
+        return childLocationDto;
+    }
+
+    public List<ChildLocationDto> getChildLocations(Long parentId) {
+        List<ChildLocationDto> childLocationDtos = new ArrayList<>();
+        Parent parent = parentRepository.findById(parentId).orElseThrow();
+        for (Child child: parent.getChildren()) {
+            ChildLocationDto childLocationDto = new ChildLocationDto();
+            ChildLocation childLocation = childLocationRepository.findByChild(child);
+            childLocationDto.setLatitude(childLocation.getLatitude());
+            childLocationDto.setLongitude(childLocation.getLongitude());
+            childLocationDtos.add(childLocationDto);
+        }
+        return childLocationDtos;
     }
 
     public List<ChildInformation> getAllChildByParent(Long parentId) {

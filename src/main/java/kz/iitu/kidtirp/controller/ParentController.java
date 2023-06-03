@@ -87,4 +87,10 @@ public class ParentController {
         return ResponseEntity.ok(parentService.getAllChildByParent(parentId));
     }
 
+    @GetMapping("/children/location/{parentId}")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<?> getAllChildLocations(@PathVariable Long parentId) {
+        return ResponseEntity.ok(parentService.getChildLocations(parentId));
+    }
+
 }
