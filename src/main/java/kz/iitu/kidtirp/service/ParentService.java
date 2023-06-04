@@ -105,9 +105,9 @@ public class ParentService {
     }
 
     public ChildLocation updateLocation(LocationDto locationDto, Long childId) {
-        Child child = childRepository.findById(childId).orElseThrow();
-        ChildLocation childLocation = new ChildLocation();
-        if (locationDto.getId() != null) {
+        Child child = childRepository.findById(childId).orElse(null);
+        ChildLocation childLocation;
+        if (locationDto.getId() != null && child != null) {
             childLocation = childLocationRepository.findById(locationDto.getId()).orElseThrow();
         } else {
             childLocation = new ChildLocation();
