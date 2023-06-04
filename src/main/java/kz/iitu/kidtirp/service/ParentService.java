@@ -107,12 +107,13 @@ public class ParentService {
     public ChildLocation updateLocation(LocationDto locationDto, Long childId) {
         Child child = childRepository.findById(childId).orElse(null);
         ChildLocation childLocation;
-        if (locationDto.getId() != null && child != null) {
+        if (locationDto.getId() != null) {
             childLocation = childLocationRepository.findById(locationDto.getId()).orElseThrow();
-        } else {
+        } else if(child != null)
+            childLocation = childLocationRepository.findByChild(child);
+        else {
             childLocation = new ChildLocation();
         }
-
         childLocation.setStatus(locationDto.getStatus());
         childLocation.setName(locationDto.getName());
         childLocation.setTime(locationDto.getTime());
@@ -120,9 +121,7 @@ public class ParentService {
         childLocation.setLongitude(locationDto.getLongitude());
         childLocation.setLatitude(locationDto.getLatitude());
         childLocation.setChild(child);
-
         return childLocationRepository.save(childLocation);
-
     }
 
     public ChildLocationDto getChildLocationLatitude(Long childId) {
