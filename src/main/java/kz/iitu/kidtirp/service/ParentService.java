@@ -129,8 +129,10 @@ public class ParentService {
         Child child = childRepository.findById(childId).orElseThrow();
         ChildLocation childLocation = childLocationRepository.findByChild(child);
         ChildLocationDto childLocationDto = new ChildLocationDto();
-        childLocationDto.setLatitude(childLocation.getLatitude());
-        childLocationDto.setLongitude(childLocation.getLongitude());
+        if (childLocation != null) {
+            childLocationDto.setLatitude(childLocation.getLatitude());
+            childLocationDto.setLongitude(childLocation.getLongitude());
+        }
         return childLocationDto;
     }
 
@@ -140,9 +142,11 @@ public class ParentService {
         for (Child child: parent.getChildren()) {
             ChildLocationDto childLocationDto = new ChildLocationDto();
             ChildLocation childLocation = childLocationRepository.findByChild(child);
-            childLocationDto.setLatitude(childLocation.getLatitude());
-            childLocationDto.setLongitude(childLocation.getLongitude());
-            childLocationDtos.add(childLocationDto);
+            if (childLocation != null) {
+                childLocationDto.setLatitude(childLocation.getLatitude());
+                childLocationDto.setLongitude(childLocation.getLongitude());
+                childLocationDtos.add(childLocationDto);
+            }
         }
         return childLocationDtos;
     }
@@ -153,9 +157,11 @@ public class ParentService {
         for (Child child: parent.getChildren()) {
             ChildInformation childInformation = new ChildInformation();
             ChildLocation childLocation = childLocationRepository.findByChild(child);
-            childInformation.setChild(child);
-            childInformation.setChildLocation(childLocation);
-            childInformations.add(childInformation);
+            if (childLocation != null) {
+                childInformation.setChild(child);
+                childInformation.setChildLocation(childLocation);
+                childInformations.add(childInformation);
+            }
         }
         return childInformations;
     }
