@@ -93,4 +93,10 @@ public class ParentController {
         return ResponseEntity.ok(parentService.getChildLocations(parentId));
     }
 
+    @DeleteMapping("/{id}")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
+    public void deleteParent(@PathVariable Long id) {
+        parentService.deleteParent(id);
+    }
+
 }

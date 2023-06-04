@@ -5,7 +5,9 @@ import kz.iitu.kidtirp.model.entity.ChildLocation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ChildLocationRepository extends JpaRepository<ChildLocation, Long> {
-    ChildLocation findByChild(Child child);
+    Optional<ChildLocation> findByChild(Child child);
 }

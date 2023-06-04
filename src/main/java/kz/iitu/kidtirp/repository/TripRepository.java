@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface TripRepository extends JpaRepository<Trip, Long> {
 
     @Query(value = "select price from trip t where t.distance <= :to and t.distance >= :from and day_time = :day and weekend = :weekend and status = 'END' order by created_date desc limit 10", nativeQuery = true)
     List<Integer> getPriceForLastTrip( @Param("day") int dayTime, @Param("weekend") Boolean weekend, @Param("from") int from, @Param("to") int to);
+    @Transactional
+    void deleteAllByDriver(Driver driver);
 }

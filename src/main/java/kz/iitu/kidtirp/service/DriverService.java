@@ -3,10 +3,7 @@ package kz.iitu.kidtirp.service;
 import kz.iitu.kidtirp.model.dto.request.CarRequest;
 import kz.iitu.kidtirp.model.dto.request.DriverRequest;
 import kz.iitu.kidtirp.model.dto.request.SignupRequest;
-import kz.iitu.kidtirp.model.entity.Car;
-import kz.iitu.kidtirp.model.entity.Trip;
-import kz.iitu.kidtirp.model.entity.Driver;
-import kz.iitu.kidtirp.model.entity.User;
+import kz.iitu.kidtirp.model.entity.*;
 import kz.iitu.kidtirp.model.entity.enums.ERole;
 import kz.iitu.kidtirp.model.entity.enums.TripStatus;
 import kz.iitu.kidtirp.repository.CarRepository;
@@ -17,6 +14,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -65,8 +63,10 @@ public class DriverService {
         return driverRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public void deleteDriver(Long driverId) {
         Driver driver = driverRepository.findById(driverId).orElseThrow();
+        tripRepository.deleteAllByDriver(driver);
         driverRepository.delete(driver);
     }
 

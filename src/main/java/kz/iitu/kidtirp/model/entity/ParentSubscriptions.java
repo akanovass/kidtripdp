@@ -28,19 +28,19 @@ public class ParentSubscriptions {
 
     private Integer availableTrips;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JoinColumn(name="parent_id", nullable=false)
     private Parent parent;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JoinColumn(name="child_id", nullable=false)
     private Child child;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JoinColumn(name="schedule_id", nullable=false)
     private Schedule schedule;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JoinColumn(name="driver_id", nullable=false)
     private Driver driver;
 

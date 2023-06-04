@@ -107,11 +107,9 @@ public class UserService {
         if (user != null) {
             user.setUsername(requestDto.getUsername());
             user.setPassword(encoder.encode(requestDto.getPassword()));
-            user.setRole(requestDto.getRole());
             user.setGmail(requestDto.getGmail());
             user.setPhoneNumber(requestDto.getPhoneNumber());
             user.setFullName(requestDto.getFullName());
-            user.setRole(requestDto.getRole());
             return userRepository.save(user);
         } else {
             throw new ObjectNotFoundException(String.format("User with id %s not found", requestDto.getId()), "404");

@@ -2,6 +2,7 @@ package kz.iitu.kidtirp.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import kz.iitu.kidtirp.model.dto.request.ChildRequest;
 import kz.iitu.kidtirp.model.dto.request.LocationDto;
 import kz.iitu.kidtirp.service.ParentService;
 import kz.iitu.kidtirp.service.TripService;
@@ -49,5 +50,23 @@ public class ChildController {
     @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<?> getChildById(@PathVariable Long id) {
         return ResponseEntity.ok(parentService.getChildById(id));
+    }
+
+    @PutMapping("/update")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<?> updateChild(@RequestBody ChildRequest request) {
+        return ResponseEntity.ok(parentService.updateChild(request));
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
+    public void deleteChild(@PathVariable Long id) {
+        parentService.deleteChild(id);
+    }
+
+    @DeleteMapping("/delete-parent/{childId}")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
+    public ResponseEntity<?> deleteParentFromChild(@PathVariable Long childId) {
+        return ResponseEntity.ok(parentService.deleteChildFromParent(childId));
     }
 }
