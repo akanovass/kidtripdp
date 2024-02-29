@@ -48,7 +48,4 @@ UML диаграмма
 
 ### Swagger url:  `[http://localhost:8085/swagger-ui/index.html]`
   
-`
-
-### Swagger url:  [http://localhost:8085/swagger-ui/index.html] 
   
